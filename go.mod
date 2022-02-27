@@ -1,4 +1,4 @@
-module github.com/sorenisanerd/gotty
+module github.com/sorenisanerd/gotty/v2
 
 go 1.16
 

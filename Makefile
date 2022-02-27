@@ -1,5 +1,5 @@
 OUTPUT_DIR = ./builds
-GIT_COMMIT = `git rev-parse HEAD | cut -c1-7`
+GIT_COMMIT = $$(git rev-parse HEAD | cut -c1-7)
 VERSION = $(shell git describe --tags)
 BUILD_OPTIONS = -ldflags "-X main.Version=$(VERSION)"
 
@@ -66,11 +66,11 @@ README-options:
 	rm options.txt.tmp
 
 tools:
-	go get github.com/mitchellh/gox
-	go get github.com/tcnksm/ghr
+	go install github.com/mitchellh/gox@latest
+	go install github.com/tcnksm/ghr@latest
 
 test:
-	if [ `go fmt $(go list ./... | grep -v /vendor/) | wc -l` -gt 0 ]; then echo "go fmt error"; exit 1; fi
+	if [ $$(go fmt $(go list ./... | grep -v /vendor/) | wc -l) -gt 0 ]; then echo "go fmt error"; exit 1; fi
 	go test ./...
 
 cross_compile:

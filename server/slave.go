@@ -1,7 +1,7 @@
 package server
 
 import (
-	"github.com/sorenisanerd/gotty/webtty"
+	"github.com/sorenisanerd/gotty/v2/webtty"
 )
 
 // Slave is webtty.Slave with some additional methods.
