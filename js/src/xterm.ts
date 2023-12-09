@@ -3,6 +3,21 @@ import { lib } from "libapps";
 import { IDisposable, Terminal } from "xterm";
 import { FitAddon } from "xterm-addon-fit";
 import { WebglAddon } from "xterm-addon-webgl";
+import { ImageAddon, IImageAddonOptions } from 'xterm-addon-image';
+
+// customize as needed (showing addon defaults)
+const customSettings: IImageAddonOptions = {
+  enableSizeReports: true,    // whether to enable CSI t reports (see below)
+  pixelLimit: 16777216,       // max. pixel size of a single image
+  sixelSupport: true,         // enable sixel support
+  sixelScrolling: true,       // whether to scroll on image output
+  sixelPaletteLimit: 256,     // initial sixel palette size
+  sixelSizeLimit: 25000000,   // size limit of a single sixel sequence
+  storageLimit: 128,          // FIFO storage limit in MB
+  showPlaceholder: true,      // whether to show a placeholder for evicted images
+  iipSupport: true,           // enable iTerm IIP support
+  iipSizeLimit: 20000000      // size limit of a single IIP sequence
+}
 
 export class Xterm {
     elem: HTMLElement;
@@ -15,6 +30,7 @@ export class Xterm {
     messageTimer: NodeJS.Timer;
 
     fitAddon: FitAddon;
+    imageAddon: ImageAddon;
     disposables: IDisposable[] = [];
 
 
@@ -31,6 +47,9 @@ export class Xterm {
 
         this.fitAddon = new FitAddon();
         this.term.loadAddon(this.fitAddon);
+
+        this.imageAddon = new ImageAddon(customSettings);
+        this.term.loadAddon(this.imageAddon);
 
         this.message = elem.ownerDocument.createElement("div");
         this.message.className = "xterm-overlay";

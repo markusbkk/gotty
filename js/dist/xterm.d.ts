@@ -2,6 +2,7 @@
 import { lib } from "libapps";
 import { IDisposable, Terminal } from "xterm";
 import { FitAddon } from "xterm-addon-fit";
+import { ImageAddon } from 'xterm-addon-image';
 export declare class Xterm {
     elem: HTMLElement;
     term: Terminal;
@@ -11,6 +12,7 @@ export declare class Xterm {
     messageTimeout: number;
     messageTimer: NodeJS.Timer;
     fitAddon: FitAddon;
+    imageAddon: ImageAddon;
     disposables: IDisposable[];
     constructor(elem: HTMLElement);
     info(): {
